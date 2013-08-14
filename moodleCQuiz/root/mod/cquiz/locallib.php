@@ -612,34 +612,40 @@ function cquiz_set_Cummulative_Grade($course,$quiz_id,$newScore,$user)
 	
 	$sql=<<<SQL
 	Select a.id
-	FROM 	{assign} a
-			JOIN {quiz} q ON a.name=CONCAT('Cummulative ',q.name)
+	FROM 	{assign} a,
+			{quiz} q  
 	WHERE 	q.id = :quizid AND
-			a.course = :courseid	
+			a.course = :courseid AND
+			( 	a.name=CONCAT('Cummulative ',q.name) OR	
+				a.name=CONCAT('Completed ',:newscore,' for ',q.name)
+			)	
 SQL;
-	
-	$params =  array("quizid"=>$quiz_id,"courseid"=>$course);
-	if(!$DB->record_exists_sql($sql,$params))
+
+	$params =  array("quizid"=>$quiz_id,"courseid"=>$course,"newscore"=>strval($newScore));
+	print "SQL"+$sql+" with ";
+	print_object($params);
+/*	if(!$DB->record_exists_sql($sql,$params))
 	{
 		return;
 	}
-	$assignment = $DB->get_record_sql($sql,$params);
+	*/
+	$assignments = $DB->get_records_sql($sql,$params);
 	
 	require_once($CFG->dirroot.'/lib/gradelib.php');
 	
+	foreach($assignments as $assignment)
+	{
+		$grade = new stdClass();
+		$grade->userid = $user;
+		$grade->rawgrade = $newScore;
+		$grade->dategraded = time();
+		$grade->datesubmitted = time();
 	
-	$grade = new stdClass();
-	$grade->userid = $user;
-	$grade->rawgrade = $newScore;
-	$grade->dategraded = time();
-	$grade->datesubmitted = time();
-
-	
-	$grades= array();
-	$grades[$user] = $grade;
-	
-	
-	grade_update('mod/assign', $course, 'mod', 'assign', $assignment->id, 0, $grades);
+		$grades= array();
+		$grades[$user] = $grade;
+		
+		grade_update('mod/assign', $course, 'mod', 'assign', $assignment->id, 0, $grades);
+	}
 }
 
 
