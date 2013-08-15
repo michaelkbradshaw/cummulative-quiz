@@ -74,6 +74,16 @@ class mod_cquiz_mod_form extends moodleform_mod {
         // Introduction.
         $this->add_intro_editor(false, get_string('introduction', 'cquiz'));
 
+        
+        $mform->addElement('duration', 'success_wait_time', get_string('success_wait_time', 'cquiz'),
+        		array('optional' => true));
+        //$mform->addHelpButton('success_wait_time', 'timelimit', 'cquiz');
+        //$mform->setAdvanced('success_wait_time', $cquizconfig->timelimit_adv);
+        $mform->setDefault('success_wait_time', $cquizconfig->timelimit);
+        
+        
+        
+        
         // -------------------------------------------------------------------------------
         $mform->addElement('header', 'timing', get_string('timing', 'cquiz'));
 

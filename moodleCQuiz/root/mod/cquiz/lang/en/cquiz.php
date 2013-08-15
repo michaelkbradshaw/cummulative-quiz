@@ -812,6 +812,7 @@ $string['subplugintype_cquiz_plural'] = 'Reports';
 $string['subplugintype_cquizaccess'] = 'Access rule';
 $string['subplugintype_cquizaccess_plural'] = 'Access rules';
 $string['substitutedby'] = 'will be substituted by';
+$string['success_wait_time'] = "How long should there be between successful attempts";
 $string['summaryofattempt'] = 'Summary of attempt';
 $string['summaryofattempts'] = 'Summary of your previous attempts';
 $string['temporaryblocked'] = 'You are temporarily not allowed to re-attempt the cquiz.<br /> You will be able to take another attempt on:';

@@ -144,6 +144,9 @@ ABC;
         }
         $this->questionids=array();
       
+        $now = time();
+        
+        
         //add questions as called for
         foreach($scores as $score)
         {
@@ -153,7 +156,13 @@ ABC;
         		unset($toQuiz[$score->quiz_id]); //remove from array
         		
         		//FIXME - check for dates
-        		//FIXME check for visibility
+        		if($score->last_score >1 and         		
+        		$score->last_date + $cquiz->success_wait_time > $now)
+        		{   //too soon to reattempt!
+        			continue;
+        		}
+        		
+        		
         		if(isQuizAvailible($score->quiz_id,$course->id,$USER->id)) 
         		{
 	        		
@@ -175,7 +184,7 @@ ABC;
 		//any left in the toQuiz can be added as normal
         foreach($toQuiz as $q=>$qs)
         {
-        	if(isQuizAvailible($score->quiz_id,$course->id,$USER->id))
+        	if(isQuizAvailible($q,$course->id,$USER->id))
         	{
 	        	$this->questionids=array_merge($this->questionids,$qs);
         	}

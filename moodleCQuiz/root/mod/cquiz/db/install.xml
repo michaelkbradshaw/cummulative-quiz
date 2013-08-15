@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/cquiz/db" VERSION="20130811" COMMENT="XMLDB file for Moodle mod/cquiz"
+<XMLDB PATH="mod/cquiz/db" VERSION="20130815" COMMENT="XMLDB file for Moodle mod/cquiz"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -10,6 +10,7 @@
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the course this cquiz is part of."/>
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Quiz name."/>
         <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Quiz introduction text."/>
+        <FIELD NAME="success_wait_time" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="how long should the cquiz wait between successful completions before allowing the subquiz to be refeated"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Quiz intro text format."/>
         <FIELD NAME="timeopen" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The time when this cquiz opens. (0 = no restriction.)"/>
         <FIELD NAME="timeclose" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The time when this cquiz closes. (0 = no restriction.)"/>
