@@ -1,12 +1,16 @@
 <?php
-$string['pluginname'] = 'Simple HTML block';
-$string['hello_world'] = 'Simple Hello World';
+$string['pluginname'] = 'Cummulative Report Block';
+$string['cquiz_report'] = 'Cummulative Reports';
 $string['default_text'] = 'What do you want to do today?';
-$string['hello_world:addinstance'] = 'Add a new simple HTML block';
-$string['hello_world:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+$string['cquiz_report:addinstance'] = 'Add a new cummulative report block';
+$string['cquiz_report:myaddinstance'] = 'Add a new cummulative report block to the My Moodle page';
 //editing
 $string['blockstring'] = 'What do you want the text to say?';
 $string['blocktitle'] = 'Would you like a different Title?';
+$string['which_cquiz'] = 'Which CQuiz would you like? to report on?';
+
+
+
 
 $string['textfields'] = "Here is some text";
 $string['addPage'] = "Add Page";

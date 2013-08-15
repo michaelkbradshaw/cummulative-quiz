@@ -2,7 +2,7 @@
 
 $capabilities = array(
 
-		'block/hello_world:myaddinstance' => array(
+		'block/cquiz_report:myaddinstance' => array(
 				'captype' => 'write',
 				'contextlevel' => CONTEXT_SYSTEM,
 				'archetypes' => array(
@@ -12,7 +12,7 @@ $capabilities = array(
 				'clonepermissionsfrom' => 'moodle/my:manageblocks'
 		),
 
-		'block/hello_world:addinstance' => array(
+		'block/cquiz_report:addinstance' => array(
 				'riskbitmask' => RISK_SPAM | RISK_XSS,
 
 				'captype' => 'write',
