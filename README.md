@@ -4,6 +4,12 @@ cummulative-quiz
 A set of Moodle Module to create a cummulative quiz activity
 
 
+Cummulative Report
+------------------
+
+This has no effect when outide of a course page.
+
+
 
 Storing grades for your cummulative quiz on a quiz by quiz basis
 ----------------------------------------------------------------

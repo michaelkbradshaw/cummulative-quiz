@@ -33,29 +33,30 @@ class block_cquiz_report extends block_list
 		include_once($CFG->dirroot.'/mod/cquiz/locallib.php');
 		//FIXME cquiz should be part of private data...
 		
-		
-		$scores = cquiz_get_cummulative_scores($this->config->cquiz_id,$USER->id);
-		
-		// Iterate over the instances
-		foreach ($scores as $score) 
+		if(!empty($this->config->cquiz_id) )
 		{
-			//print_object($question);
-//			$this->content->items[] = "$question[1] has $question[2] with answer $question[3]";
-			if($score->name !== "EASTER_EGG")
+			$scores = cquiz_get_cummulative_scores($this->config->cquiz_id,$USER->id);
+			
+			// Iterate over the instances
+			foreach ($scores as $score) 
 			{
-			$text = <<<TEXT
-			<h4>$score->name</h4>
-			<progress value='$score->last_score' max='$score->max_score' >
-     		 current $score->last_score ,max $score->max_score"</progress>
-			current $score->last_score /max $score->max_score
+				//print_object($question);
+	//			$this->content->items[] = "$question[1] has $question[2] with answer $question[3]";
+				if($score->name !== "EASTER_EGG")
+				{
+				$text = <<<TEXT
+				<h4>$score->name</h4>
+				<progress value='$score->last_score' max='$score->max_score' >
+	     		 current $score->last_score ,max $score->max_score"</progress>
+				current $score->last_score /max $score->max_score
 TEXT;
-			
-			
-			$this->content->items[] = $text; 
-			//$this->content->icons[] = html_writer::empty_tag('img', array('src' => '../pix/i/tick_green_big.gif', 'class' => 'icon'));
-			}			
+				
+				
+				$this->content->items[] = $text; 
+				//$this->content->icons[] = html_writer::empty_tag('img', array('src' => '../pix/i/tick_green_big.gif', 'class' => 'icon'));
+				}			
+			}
 		}
-		
 		
 			
 		return $this->content;
