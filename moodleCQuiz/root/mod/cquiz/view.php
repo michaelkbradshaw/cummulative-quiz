@@ -116,6 +116,7 @@ if (!$canpreview) {
     // Users who can preview the cquiz don't get a proper grade, so work out a
     // plausible value to display instead, so the page looks right.
     $mygrade = cquiz_rescale_grade($lastfinishedattempt->sumgrades, $cquiz, false);
+	//$mygrade = $lastfinishedattempt->sumgrades/$attempt->num_questions;
 } else {
     $mygrade = null;
 }

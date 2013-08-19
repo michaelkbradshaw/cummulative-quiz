@@ -87,6 +87,12 @@ class cquiz {
      */
     public function __construct($cquiz, $cm, $course, $getcontext = true) {
     	
+    	/*print("Calling Expensive cquiz object<br />\n");
+    	
+//    	print_object(debug_backtrace());
+    	$e = new Exception;
+    	var_dump($e->getTraceAsString());
+    	*/
     	global $DB,$USER;
         $this->cquiz = $cquiz;
         $this->cm = $cm;
@@ -710,6 +716,13 @@ class cquiz_attempt {
                 $this->questionpages[$slot] = $page;
             }
         }
+    }
+    
+    public function get_num_questions()
+    {
+    	return $this->attempt->num_questions;
+    	
+    	
     }
 
     /**

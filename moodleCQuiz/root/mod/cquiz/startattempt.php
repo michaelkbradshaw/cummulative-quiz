@@ -220,7 +220,7 @@ if (!($cquizobj->get_cquiz()->attemptonlast && $lastattempt)) {
         $questionsinuse[] = $question->id;
     }
     
-    print_object($questionQuizMap);
+    //print_object($questionQuizMap);
 
     // Start all the questions.
     if ($attempt->preview) {

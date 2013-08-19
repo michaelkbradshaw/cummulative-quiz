@@ -903,12 +903,12 @@ class mod_cquiz_renderer extends plugin_renderer_base {
         $table->head[] = get_string('attemptstate', 'cquiz');
         $table->align[] = 'left';
         $table->size[] = '';
-        if ($viewobj->markcolumn) {
+        /*if ($viewobj->markcolumn) {
             $table->head[] = get_string('marks', 'cquiz') . ' / ' .
                     cquiz_format_grade($cquiz, $cquiz->sumgrades);
             $table->align[] = 'center';
             $table->size[] = '';
-        }
+        }*/
         if ($viewobj->gradecolumn) {
             $table->head[] = get_string('grade') . ' / ' .
                     cquiz_format_grade($cquiz, $cquiz->grade);
@@ -941,18 +941,26 @@ class mod_cquiz_renderer extends plugin_renderer_base {
             }
 
             $row[] = $this->attempt_state($attemptobj);
-
+/* //don't show marks!
             if ($viewobj->markcolumn) {
                 if ($attemptoptions->marks >= question_display_options::MARK_AND_MAX &&
                         $attemptobj->is_finished()) {
-                    $row[] = cquiz_format_grade($cquiz, $attemptobj->get_sum_marks());
+                	$row[] = cquiz_format_grade($cquiz, $attemptobj->get_sum_marks());
+                    
+                    
                 } else {
-                    $row[] = '';
+          $row[] = '';
                 }
             }
-
+*/
+  //          $row[] = '';
+            
+            
             // Ouside the if because we may be showing feedback but not grades.
-            $attemptgrade = cquiz_rescale_grade($attemptobj->get_sum_marks(), $cquiz, false);
+           // $attemptgrade = cquiz_rescale_grade($attemptobj->get_sum_marks(), $cquiz, false);
+            $attemptgrade = cquiz_rescale_grade($attemptobj->get_sum_marks()/$attemptobj->get_num_questions(), $cquiz, false);
+//            $attemptgrade = $attemptobj->get_sum_marks()/
+  //          $attemptobj->get_num_questions();
 
             if ($viewobj->gradecolumn) {
                 if ($attemptoptions->marks >= question_display_options::MARK_AND_MAX &&

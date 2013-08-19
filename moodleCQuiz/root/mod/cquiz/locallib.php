@@ -611,19 +611,19 @@ function cquiz_set_Cummulative_Grade($course,$quiz_id,$newScore,$user)
 	global $DB,$CFG;
 	
 	$sql=<<<SQL
-	Select a.id
+	Select a.id, a.duedate
 	FROM 	{assign} a,
 			{quiz} q  
 	WHERE 	q.id = :quizid AND
 			a.course = :courseid AND
-			( 	a.name=CONCAT('Cummulative ',q.name) OR	
-				a.name=CONCAT('Completed ',:newscore,' for ',q.name)
+			( 	UCASE(a.name)=UCASE(CONCAT('Cummulative ',q.name)) OR	
+				UCASE(a.name)=UCASE(CONCAT('Completed ',:newscore,' for ',q.name))
 			)	
 SQL;
 
 	$params =  array("quizid"=>$quiz_id,"courseid"=>$course,"newscore"=>strval($newScore));
-	print "SQL"+$sql+" with ";
-	print_object($params);
+//	print "SQL"+$sql+" with ";
+//	print_object($params);
 /*	if(!$DB->record_exists_sql($sql,$params))
 	{
 		return;
@@ -637,12 +637,22 @@ SQL;
 	{
 		$grade = new stdClass();
 		$grade->userid = $user;
-		$grade->rawgrade = $newScore;
+
 		$grade->dategraded = time();
 		$grade->datesubmitted = time();
 	
+	
+		if($assignment->duedate == 0 or time() <$assignment->duedate )
+		{
+			$grade->rawgrade = $newScore;
+		}
+		else 
+		{
+			$grade->rawgrade = 0;
+		}
 		$grades= array();
 		$grades[$user] = $grade;
+//		print_object()
 		
 		grade_update('mod/assign', $course, 'mod', 'assign', $assignment->id, 0, $grades);
 	}
@@ -738,8 +748,8 @@ SQL;
 			{
 				$row->current_score = 1.0;
 			}
-			print "Score has changed from $row->last_score to $row->current_score <br /> for";
-			print_object($row);
+//			print "Score has changed from $row->last_score to $row->current_score <br /> for";
+//			print_object($row);
 		
 			$row->date_taken = time();
 			
