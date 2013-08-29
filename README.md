@@ -22,5 +22,12 @@ Cummulative Q     == records all scores
 Complete G For Q  == only record grade G and nothing else
 
 
+Storing by group
+~~~~~~~~~~~~~~~~
+
+If you are working with groups, you can add the group name to the assignments to only save for that group.  For instance, if Groups A and B exist
+
+Cummulative Q A    == records all scores for group A
+Complete G For Q  B == only record grade G and for group B and nothing else
 
 

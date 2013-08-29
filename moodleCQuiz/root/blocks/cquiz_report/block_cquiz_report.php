@@ -47,8 +47,8 @@ class block_cquiz_report extends block_list
 				$text = <<<TEXT
 				<h4>$score->name</h4>
 				<progress value='$score->last_score' max='$score->max_score' >
-	     		 current $score->last_score ,max $score->max_score"</progress>
-				current $score->last_score /max $score->max_score
+	     		 current $score->last_score ,best $score->max_score"</progress>
+				current $score->last_score /best $score->max_score
 TEXT;
 				
 				

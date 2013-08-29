@@ -609,7 +609,7 @@ SQL;
 function cquiz_set_Cummulative_Grade($course,$quiz_id,$newScore,$user)
 {
 	global $DB,$CFG;
-	
+
 	$sql=<<<SQL
 	Select a.id, a.duedate
 	FROM 	{assign} a,
@@ -620,8 +620,48 @@ function cquiz_set_Cummulative_Grade($course,$quiz_id,$newScore,$user)
 				UCASE(a.name)=UCASE(CONCAT('Completed ',:newscore,' for ',q.name))
 			)	
 SQL;
+	
+	$sql =<<<SQL
+	Select a.id, a.duedate, a.name, q.name
+	FROM 	{assign} a,
+			{quiz} q,
+			(
+				SELECT CONCAT(prefix,suffix) as target
+				FROM
+				(
+					SELECT UCASE(CONCAT('Cummulative ',q.name)) as prefix
+					FROM {quiz} q
+					WHERE q.id = :quizid1
+				
+				UNION
+		
+					SELECT UCASE(CONCAT('Completed ',:newscore,' for ',q.name)) as prefix
+					FROM {quiz} q
+					WHERE q.id = :quizid2
 
-	$params =  array("quizid"=>$quiz_id,"courseid"=>$course,"newscore"=>strval($newScore));
+				) as P,
+				(SELECT CONCAT(" ",UPPER(g.name)) as suffix
+				FROM {groups_members} m, {groups} g
+				WHERE g.id = m.groupid AND g.courseid = :courseid1 AND m.userid=:userid
+				UNION
+				Select "" as suffix
+				) as S
+			) as t
+	WHERE 	
+			q.id = :quizid3 AND
+			a.course = :courseid2 AND
+			UCASE(a.name) = t.target
+SQL;
+
+	
+
+	$params =  array("quizid1"=>$quiz_id,
+						"quizid2"=>$quiz_id,
+						"quizid3"=>$quiz_id,
+						"courseid1"=>$course,
+						"courseid2"=>$course,
+						"newscore"=>strval($newScore),
+						"userid"=>$user	);
 //	print "SQL"+$sql+" with ";
 //	print_object($params);
 /*	if(!$DB->record_exists_sql($sql,$params))
@@ -652,7 +692,7 @@ SQL;
 		}
 		$grades= array();
 		$grades[$user] = $grade;
-//		print_object()
+		
 		
 		grade_update('mod/assign', $course, 'mod', 'assign', $assignment->id, 0, $grades);
 	}
@@ -748,8 +788,8 @@ SQL;
 			{
 				$row->current_score = 1.0;
 			}
-//			print "Score has changed from $row->last_score to $row->current_score <br /> for";
-//			print_object($row);
+			//print "Score has changed from $row->last_score to $row->current_score <br /> for";
+			//print_object($row);
 		
 			$row->date_taken = time();
 			

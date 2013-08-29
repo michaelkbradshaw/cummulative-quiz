@@ -1550,14 +1550,14 @@ class cquiz_attempt {
 
     public function process_finish($timestamp, $processsubmitted) {
         global $DB;
-
+        
         $transaction = $DB->start_delegated_transaction();
 
         if ($processsubmitted) {
             $this->quba->process_all_actions($timestamp);
         }
         $this->quba->finish_all_questions($timestamp);
-
+        
         question_engine::save_questions_usage_by_activity($this->quba);
 
         $this->attempt->timemodified = $timestamp;
@@ -1565,9 +1565,13 @@ class cquiz_attempt {
         $this->attempt->sumgrades = $this->quba->get_total_mark();
         $this->attempt->state = self::FINISHED;
         $this->attempt->timecheckstate = null;
+        //print_object($this->attempt);
+        
         $DB->update_record('cquiz_attempts', $this->attempt);
 
+       
         if (!$this->is_preview()) {
+        	
             cquiz_save_best_grade($this->get_cquiz(), $this->attempt->userid);
 
             // Trigger event.
@@ -1576,8 +1580,9 @@ class cquiz_attempt {
             // Tell any access rules that care that the attempt is over.
             $this->get_access_manager($timestamp)->current_attempt_finished();
         }
-
+        
         $transaction->allow_commit();
+       
     }
 
     /**
