@@ -616,7 +616,7 @@ function cquiz_set_Cummulative_Grade($course,$quiz_id,$newScore,$user)
 			{quiz} q  
 	WHERE 	q.id = :quizid AND
 			a.course = :courseid AND
-			( 	UCASE(a.name)=UCASE(CONCAT('Cummulative ',q.name)) OR	
+			( 	UCASE(a.name)=UCASE(CONCAT('Cumulative ',q.name)) OR	
 				UCASE(a.name)=UCASE(CONCAT('Completed ',:newscore,' for ',q.name))
 			)	
 SQL;
