@@ -23,7 +23,7 @@ Complete G For Q  == only record grade G and nothing else
 
 
 Storing by group
-~~~~~~~~~~~~~~~~
+----------------
 
 If you are working with groups, you can add the group name to the assignments to only save for that group.  For instance, if Groups A and B exist
 
